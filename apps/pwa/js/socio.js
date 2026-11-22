@@ -7,6 +7,7 @@ function vInicio() {
   const lastToday = st.checkedToday ? fmtTime(st.last) : null;
   const nc = nextClassFor(m.id);
   const duel = S.duels.find(d => d.status === 'activo' && (d.a === m.id || d.b === m.id));
+  const notice = S.notices[0];
   return `
   <section class="hello">
     <div><p class="eyebrow">${esc(todayTxt)}</p><h1 class="h-display">Hola, <em>${esc(firstName(m.name))}</em></h1></div>
@@ -45,6 +46,7 @@ function vInicio() {
   <section class="quick" aria-label="Accesos rápidos">
     <button type="button" data-act="timer">${I.timer}Timer</button>
     <button type="button" data-act="video">${I.video}Video mes</button>
+    <button type="button" data-act="shareCard">${I.share}Compartir</button>
     <button type="button" data-act="membership">${I.card}Membresía</button>
   </section>
 
@@ -67,6 +69,7 @@ function vInicio() {
     ${S.challenges.slice(0, 2).map(ch => challengeRow(ch, m, st)).join('')}
   </section>
 
+  ${notice ? `<section class="card notice stack"><p class="eyebrow lime">${esc(notice.tag || 'Aviso')} · ${fmtDate(notice.ts)}</p><p class="t">${esc(notice.title)}</p><p class="small muted">${esc(notice.body)}</p></section>` : ''}
   <button type="button" class="btn ghost block small" data-act="logout">${I.x}Cerrar sesión</button>
   `;
 }
