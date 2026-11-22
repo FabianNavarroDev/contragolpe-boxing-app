@@ -2,6 +2,7 @@
 /* Ficha de peleador del socio: vista de perfil, foto con quitado de fondo, edición de datos y registro de peso. */
 function vPerfil() {
   const m = me(), st = stats(m), lv = st.lvl;
+  const got = earned(m);
   const years = ((Date.now() - new Date(m.since).getTime()) / (365 * DAY));
   const mode = ui.fighterMode;
   mount(() => {
@@ -51,6 +52,10 @@ function vPerfil() {
     <div class="stat-tile"><div class="l">XP</div><div class="v num">${nf(m.xp)}</div></div>
   </section>
 
+  <section class="stack">
+    <div class="sec-head"><h2 class="h-sec">Insignias</h2><span class="small muted">${got.size}/${BADGES.length}</span></div>
+    <div class="badges">${BADGES.map(b => `<div class="badge ${got.has(b.id) ? '' : 'locked'}"><div class="ic">${I[b.icon]}</div><span>${b.name}</span></div>`).join('')}</div>
+  </section>
 
   <section class="card stack">
     <div class="sec-head"><h2 class="h-sec">Progreso de peso</h2><button type="button" class="link" data-act="logWeight">Registrar</button></div>
