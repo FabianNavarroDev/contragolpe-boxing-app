@@ -1,37 +1,51 @@
 # Contragolpe Boxing App
 
-App móvil de miembros y panel administrativo para Contragolpe Boxing Gym.
-Proyecto VII · UDG Virtual · LDSW.
+App de gestión y fidelización de miembros para **Contragolpe Boxing Gym** (Guadalajara).
+Proyecto VII · UDG Virtual · Licenciatura en Desarrollo de Sistemas Web · Metodología Scrum.
+
+Equipo: Ricardo Fabián Navarro González · Fernando Tonatiuh Espinosa
+
+## Avance por sprint
+
+| Sprint | Objetivo | Estado | Código del sprint | Documento |
+|---|---|---|---|---|
+| 1 | Fundamentos y arquitectura | Cerrado | [`release/sprint-1`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-1) | [sprint-01.md](docs/sprints/sprint-01.md) |
+| 2 | Base técnica y planeación (organizacional) | Cerrado | [`release/sprint-2`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-2) | [sprint-02.md](docs/sprints/sprint-02.md) |
+| 3 | Registro e inicio de sesión + base de la app | Pendiente | — | — |
+| 4 | Perfil de los miembros (ficha de peleador) | Pendiente | — | — |
+| 5 | Registro de asistencia mediante QR | Pendiente | — | — |
+| 6 | Gamificación: retos, duelos y premios | Pendiente | — | — |
+| 7 | Panel del gym, contenido para redes y despliegue | Pendiente | — | — |
+
+Cada sprint cerrado tiene una rama **`release/sprint-N`** que congela el código tal como quedó al cierre y dos **Pull Requests**: el del trabajo del sprint (`feature → develop`) y el del cierre (`develop → main`).
 
 ## Estructura
 
 ```
-apps/mobile   App de miembros (React Native + Expo)
-apps/admin    Panel administrativo (React + Vite)
-docs          Documentación y arquitectura
+apps/pwa   Prototipo funcional (PWA: app del socio + panel del gym)
+docs       Arquitectura, documentos por sprint y entregables
 ```
 
-## Requisitos
-- Node.js LTS y Git
-- Expo Go en tu celular (para probar la app móvil)
+Detalle técnico: [docs/arquitectura.md](docs/arquitectura.md)
 
-## Ejecutar la app móvil
+## Cómo ejecutarlo
+
+No requiere instalar dependencias. Desde la raíz del repositorio:
+
 ```
-cd apps/mobile
-npm install
-cp .env.example .env    # y llena tus valores
-npx expo start
+cd apps/pwa
+python -m http.server 8080
 ```
 
-## Ejecutar el panel admin
-```
-cd apps/admin
-npm install
-cp .env.example .env    # y llena tus valores
-npm run dev
-```
+Abre http://localhost:8080 en el navegador (o la IP de tu computadora desde el celular en la misma red).
+
+Accesos de demostración:
+- **Socio:** el teléfono que aparece en la pantalla de inicio de sesión, o crea tu cuenta.
+- **Gym:** PIN `2026`.
 
 ## Flujo de ramas
-- `main`: versión estable (solo al cierre de cada sprint)
-- `develop`: integración
-- `feature/tX-Y-nombre`: una rama por tarea
+
+- `main`: versión estable; solo recibe el cierre de cada sprint.
+- `develop`: integración.
+- `feature/sprint-N-nombre`: trabajo de cada sprint; entra a `develop` mediante Pull Request.
+- `release/sprint-N`: copia fija del código al cierre de cada sprint (no se modifica).
