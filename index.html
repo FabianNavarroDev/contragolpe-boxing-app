@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090a08">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="App oficial de Contragolpe Boxing: check-in con QR, ficha de peleador, retos, recompensas y panel del gym.">
+<title>Contragolpe Boxing App</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M4 4h32v22l-16 10L4 26z" fill="#c8ff2e"/>
+        <path d="M11 13h9v3h-6v6h6v3h-9zM22 13h8v3h-5v6h2v-2h-1v-3h4v8h-8z" fill="#0d1203"/>
+      </svg>
+      <div class="brand-txt"><b>CONTRAGOLPE</b><span id="brandSub">Boxing Gym</span></div>
+    </div>
+    <div class="role-switch" role="group" aria-label="Cambiar vista">
+      <button type="button" data-act="role" data-r="socio" id="roleSocio">Socio</button>
+      <button type="button" data-act="role" data-r="admin" id="roleAdmin">Gym</button>
+    </div>
+    <button type="button" class="icon-btn" id="topAction" aria-label="Avisos"></button>
+  </header>
+  <main class="view" id="view" tabindex="-1"></main>
+  <nav class="tabbar" id="tabbar" aria-label="Navegación principal"></nav>
+  <div class="toast-wrap" id="toasts" aria-live="polite"></div>
+</div>
+<script src="vendor/qrcode.min.js"></script>
+<script src="vendor/jsQR.js"></script>
+<script src="data.js"></script>
+<script src="js/core.js"></script>
+<script src="js/acceso.js"></script>
+<script src="js/visor360.js"></script>
+<script src="js/socio.js"></script>
+<script src="js/perfil.js"></script>
+<script src="js/gym.js"></script>
+<script src="js/checkin.js"></script>
+<script src="js/clases.js"></script>
+<script src="js/video-mes.js"></script>
+<script src="js/gamificacion.js"></script>
+<script src="js/panel.js"></script>
+<script src="js/compartir.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
