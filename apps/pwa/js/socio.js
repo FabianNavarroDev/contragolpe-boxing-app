@@ -5,19 +5,41 @@ function vInicio() {
   const m = me(), st = stats(m), lv = st.lvl;
   const todayTxt = new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
   const lastToday = st.checkedToday ? fmtTime(st.last) : null;
+  const nc = nextClassFor(m.id);
   return `
   <section class="hello">
     <div><p class="eyebrow">${esc(todayTxt)}</p><h1 class="h-display">Hola, <em>${esc(firstName(m.name))}</em></h1></div>
     <button type="button" class="avatar" data-act="go" data-r="perfil" aria-label="Ver mi ficha">${m.photo ? `<img src="${m.photo}" alt="">` : initials(m.name)}</button>
   </section>
 
-  <section class="card stack">
-    <p class="eyebrow lime">Tu membresía</p>
-    <div class="row" style="flex-wrap:wrap;gap:6px">${statusPill(st.status)}<span class="pill plain">${esc(planById(m.plan).name)} · ${st.daysLeft >= 0 ? 'vence ' + relDays(m.expires) : 'venció ' + relDays(m.expires)}</span></div>
-    <p class="small muted">${st.last ? 'Última visita registrada ' + relDays(st.last) + '.' : 'Aún no hay visitas registradas.'}</p>
+  <section class="checkin-hero">
+    <div class="row">
+      <div style="flex:1;min-width:0" class="stack">
+        <p class="eyebrow lime">Racha actual</p>
+        <p><span class="h-display num" style="font-size:52px">${m.streak}</span> <span class="eyebrow">días</span></p>
+        <p class="small muted">${lastToday ? `Entrada registrada hoy a las ${lastToday}.` : st.status === 'vencido' ? 'Tu membresía venció. Renuévala para registrar entrada.' : 'Todavía no registras tu entrada de hoy.'}</p>
+        <div class="row" style="flex-wrap:wrap;gap:6px">${statusPill(st.status)}<span class="pill plain">${esc(planById(m.plan).name)} · ${st.daysLeft >= 0 ? 'vence ' + relDays(m.expires) : 'venció ' + relDays(m.expires)}</span></div>
+      </div>
+      <button type="button" class="checkin-btn ${st.checkedToday ? 'done' : ''}" data-act="${st.checkedToday ? 'readyAgain' : 'scan'}" aria-label="${st.checkedToday ? 'Ver mi banner de hoy' : 'Hacer check-in con QR'}">
+        <span>${st.checkedToday ? I.check + 'Listo' : I.qr + 'Check-in'}</span>
+      </button>
+    </div>
+    ${weekStrip(m)}
+  </section>
+
+  <section class="card level-card">
+    <div class="row">
+      <div class="lvl num">${lv.level}</div>
+      <div style="flex:1;min-width:0">
+        <p class="eyebrow">Nivel · <span class="lime" style="color:var(--lime)">${lv.title}</span></p>
+        <div class="bar" style="margin:6px 0 5px"><i style="width:${Math.round(lv.pct * 100)}%"></i></div>
+        <p class="small muted num">${nf(lv.toNext)} XP para nivel ${lv.level + 1}</p>
+      </div>
+    </div>
   </section>
 
   <section class="quick" aria-label="Accesos rápidos">
+    <button type="button" data-act="timer">${I.timer}Timer</button>
     <button type="button" data-act="video">${I.video}Video mes</button>
     <button type="button" data-act="membership">${I.card}Membresía</button>
   </section>
@@ -27,6 +49,12 @@ function vInicio() {
     <div class="stat-tile"><div class="l">Rounds mes</div><div class="v num">${nf(st.monthRounds)}<small>rds</small></div></div>
   </section>
 
+  <section class="stack">
+    <div class="sec-head"><h2 class="h-sec">Tu próxima clase</h2><button type="button" class="link" data-act="go" data-r="clases">Ver horario</button></div>
+    ${nc ? `<div class="card class-card"><div class="class-time num">${nc.c.time}<small>${relDays(nc.when)}</small></div>
+      <div><p class="name">${esc(nc.c.name)}</p><p class="small muted">${esc(nc.c.coach)} · ${nc.c.dur} min · ${nc.c.booked.length}/${nc.c.cap} lugares</p></div></div>`
+      : `<div class="card empty">No tienes clases reservadas. <button type="button" class="link" style="color:var(--lime)" data-act="go" data-r="clases">Reserva una</button></div>`}
+  </section>
 
 
 
