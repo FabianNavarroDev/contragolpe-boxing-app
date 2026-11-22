@@ -3,6 +3,7 @@
 
 const ROUTES = {
   inicio: { role: 'socio', label: 'Inicio', icon: 'home', render: vInicio },
+  perfil: { role: 'socio', label: 'Mi ficha', icon: 'user', render: vPerfil },
   socios: { role: 'admin', label: 'Socios', icon: 'users', render: vSocios },
 };
 
@@ -13,8 +14,14 @@ const ACTIONS = {
   login: d => openLogin(d.r),
   logout: () => logout(),
   close: () => popLayer(),
+  video: openVideo,
+  photo: openPhoto,
+  compare: openCompare,
   membership: () => openMembership(),
+  editProfile: openEditProfile,
+  logWeight: openLogWeight,
   reset: () => confirmSheet('¿Reiniciar la demo?', 'Se borran los cambios hechos en este navegador y se cargan los datos de ejemplo.', 'Reiniciar', resetDemo),
+  fMode: d => { ui.fighterMode = d.m; render(); },
   socioFilter: d => { ui.socioFilter = d.k; render(); },
   member: d => openMember(d.id),
   msgMember: d => openMsg(d.id),
