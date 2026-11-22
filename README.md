@@ -12,7 +12,7 @@ Equipo: Ricardo Fabián Navarro González · Fernando Tonatiuh Espinosa
 | 1 | Fundamentos y arquitectura | Cerrado | [`release/sprint-1`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-1) | [sprint-01.md](docs/sprints/sprint-01.md) |
 | 2 | Base técnica y planeación (organizacional) | Cerrado | [`release/sprint-2`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-2) | [sprint-02.md](docs/sprints/sprint-02.md) |
 | 3 | Registro e inicio de sesión + base de la app | Cerrado | [`release/sprint-3`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-3) | [sprint-03.md](docs/sprints/sprint-03.md) |
-| 4 | Perfil de los miembros (ficha de peleador) | Pendiente | — | — |
+| 4 | Perfil de los miembros (ficha de peleador) | Cerrado | [`release/sprint-4`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-4) | [sprint-04.md](docs/sprints/sprint-04.md) |
 | 5 | Registro de asistencia mediante QR | Pendiente | — | — |
 | 6 | Gamificación: retos, duelos y premios | Pendiente | — | — |
 | 7 | Panel del gym, contenido para redes y despliegue | Pendiente | — | — |
