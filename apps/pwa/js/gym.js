@@ -39,14 +39,17 @@ function openMember(id) {
       <div class="row between"><span class="muted">Vence</span><b>${fmtDate(m.expires, { day: 'numeric', month: 'long', year: 'numeric' })}</b></div>
       <div class="row between"><span class="muted">Socio desde</span><b>${fmtDate(m.since, { month: 'long', year: 'numeric' })}</b></div>
       <div class="row between"><span class="muted">Última visita</span><b>${st.last ? relDays(st.last) : 'sin registro'}</b></div>
+      <div class="row between"><span class="muted">Golpes</span><b class="num">${nf(m.coins)}</b></div>
     </div>
     <div class="grid2">
       <button type="button" class="btn primary" id="mdPay">${I.card}Registrar pago</button>
+      <button type="button" class="btn" id="mdCi" ${st.checkedToday ? 'disabled' : ''}>${I.door}${st.checkedToday ? 'Ya entró hoy' : 'Check-in manual'}</button>
       <button type="button" class="btn" id="mdMsg">${I.msg}Mensaje</button>
       <button type="button" class="btn danger" id="mdDel">${I.trash}Dar de baja</button>
     </div>`);
   const el = l.el;
   $('#mdPay', el).onclick = () => { popLayer(); openMembership(m.id, true); };
+  $('#mdCi', el).onclick = () => { const r = doCheckin(m.id, 'recepción'); popLayer(); render(); toast(r.expired ? 'Membresía vencida: registra un pago primero.' : `Entrada registrada: ${m.name}.`, r.expired ? '' : 'lime'); };
   $('#mdMsg', el).onclick = () => { popLayer(); openMsg(m.id); };
   $('#mdDel', el).onclick = () => confirmSheet('¿Dar de baja?', `Se eliminará a ${esc(m.name)} y su historial de esta demo.`, 'Dar de baja', () => {
     S.members = S.members.filter(x => x.id !== m.id); S.classes.forEach(c => { c.booked = c.booked.filter(b => b !== m.id); });
