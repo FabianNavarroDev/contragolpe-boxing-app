@@ -180,6 +180,7 @@ function readyHTML(m, res, kiosk) {
       ${res && res.ok ? `<div class="reward-pop"><span class="pill lime">+${res.xp} XP</span><span class="pill lime">+${res.coins} golpes</span>${res.levelUp ? `<span class="pill lime">¡Subiste a nivel ${res.levelUp}!</span>` : ''}${res.newBadges.map(b => `<span class="pill lime">Insignia: ${b.name}</span>`).join('')}</div>` : res && res.already ? '<p class="small muted">Ya registraste tu entrada hoy. ¡A entrenar!</p>' : ''}
       ${kiosk ? '' : `<div class="grid2">
         <button type="button" class="btn" data-act="timer">${I.timer}Timer de rounds</button>
+        <button type="button" class="btn primary" data-act="shareCard">${I.share}Compartir</button>
       </div>`}
     </div></div>`;
 }

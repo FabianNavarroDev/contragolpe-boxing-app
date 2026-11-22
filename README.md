@@ -5,6 +5,8 @@ Proyecto VII · UDG Virtual · Licenciatura en Desarrollo de Sistemas Web · Met
 
 Equipo: Ricardo Fabián Navarro González · Fernando Tonatiuh Espinosa
 
+**Demo en línea:** https://fabiannavarrodev.github.io/contragolpe-boxing-app/
+
 ## Avance por sprint
 
 | Sprint | Objetivo | Estado | Código del sprint | Documento |
@@ -15,7 +17,7 @@ Equipo: Ricardo Fabián Navarro González · Fernando Tonatiuh Espinosa
 | 4 | Perfil de los miembros (ficha de peleador) | Cerrado | [`release/sprint-4`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-4) | [sprint-04.md](docs/sprints/sprint-04.md) |
 | 5 | Registro de asistencia mediante QR | Cerrado | [`release/sprint-5`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-5) | [sprint-05.md](docs/sprints/sprint-05.md) |
 | 6 | Gamificación: retos, duelos y premios | Cerrado | [`release/sprint-6`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-6) | [sprint-06.md](docs/sprints/sprint-06.md) |
-| 7 | Panel del gym, contenido para redes y despliegue | Pendiente | — | — |
+| 7 | Panel del gym, contenido para redes y despliegue | Cerrado | [`release/sprint-7`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-7) | [sprint-07.md](docs/sprints/sprint-07.md) |
 
 Cada sprint cerrado tiene una rama **`release/sprint-N`** que congela el código tal como quedó al cierre y dos **Pull Requests**: el del trabajo del sprint (`feature → develop`) y el del cierre (`develop → main`).
 

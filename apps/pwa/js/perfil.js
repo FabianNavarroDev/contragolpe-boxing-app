@@ -44,6 +44,7 @@ function vPerfil() {
     <button type="button" class="btn" data-act="photo">${I.image}Foto de ficha</button>
     <button type="button" class="btn" data-act="video">${I.video}Video del mes</button>
     <button type="button" class="btn" data-act="editProfile">${I.edit}Editar ficha</button>
+    <button type="button" class="btn primary" data-act="shareCard">${I.share}Compartir</button>
   </section>
 
   <section class="grid3">

@@ -7,9 +7,11 @@ const ROUTES = {
   retos: { role: 'socio', label: 'Retos', icon: 'trophy', render: vRetos },
   tienda: { role: 'socio', label: 'Premios', icon: 'gift', render: vTienda },
   perfil: { role: 'socio', label: 'Mi ficha', icon: 'user', render: vPerfil },
+  admin: { role: 'admin', label: 'Panel', icon: 'chart', render: vAdmin },
   socios: { role: 'admin', label: 'Socios', icon: 'users', render: vSocios },
   agenda: { role: 'admin', label: 'Agenda', icon: 'cal', render: vAgenda },
   entregas: { role: 'admin', label: 'Premios', icon: 'gift', render: vEntregas },
+  ajustes: { role: 'admin', label: 'Avisos', icon: 'mega', render: vAjustes }
 };
 
 /* ================= Acciones (delegación) ================= */
@@ -19,6 +21,7 @@ const ACTIONS = {
   login: d => openLogin(d.r),
   logout: () => logout(),
   close: () => popLayer(),
+  notices: openNotices,
   kiosk: openKiosk,
   scan: openScanner,
   readyAgain: () => showReady({ member: me(), already: true }),
@@ -26,6 +29,7 @@ const ACTIONS = {
   video: openVideo,
   photo: openPhoto,
   compare: openCompare,
+  shareCard: openShare,
   membership: () => openMembership(),
   editProfile: openEditProfile,
   logWeight: openLogWeight,
@@ -74,6 +78,7 @@ const ACTIONS = {
   deliver: d => { const r = S.redemptions.find(x => x.id === d.id); r.status = 'entregado'; r.deliveredAt = new Date().toISOString(); save(); render(); toast(`Entregado: ${r.code}.`, 'lime'); },
   stock: d => { const r = S.rewards.find(x => x.id === d.id); r.stock = Math.max(0, r.stock + Number(d.d)); save(); render(); },
   delChallenge: d => confirmSheet('¿Eliminar reto?', 'Los socios dejarán de verlo en la app.', 'Eliminar', () => { S.challenges = S.challenges.filter(x => x.id !== d.id); save(); render(); }),
+  delNotice: d => { S.notices = S.notices.filter(x => x.id !== d.id); save(); render(); }
 };
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]');
@@ -87,9 +92,19 @@ document.addEventListener('input', e => {
     ui.socioQuery = el.value; const pos = el.selectionStart; render();
     const n = $('#socioQ'); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (er) { } }
   }
+  if (el.dataset.change === 'delay') { S.gym.checkinDelay = Number(el.value); const v = $('#delayV'); if (v) v.textContent = `${el.value} s (la propuesta original es 30 s; 4 s para demostración)`; save(); }
 });
 document.addEventListener('change', e => {
   const el = e.target;
+  if (el.dataset.change === 'liveSim') { ui.liveSim = el.checked; render(); }
+  if (el.dataset.change === 'planPrice') { const p = S.plans.find(x => x.id === el.dataset.id); p.price = Math.max(0, Number(el.value) || 0); save(); toast(`Precio de ${p.name} actualizado: ${money(p.price)}.`, 'lime'); }
+});
+document.addEventListener('submit', e => {
+  if (e.target.id === 'noticeForm') {
+    e.preventDefault();
+    S.notices.unshift({ id: uid('n'), title: $('#nTitle').value.trim(), body: $('#nBody').value.trim(), tag: $('#nTag').value, ts: new Date().toISOString() });
+    save(); render(); toast('Aviso enviado a todos los socios.', 'lime');
+  }
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && layers.length) popLayer(); });
 let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (!layers.length) render(); }, 250); });
@@ -99,6 +114,8 @@ if (isNative()) {
   document.documentElement.classList.add('native');
   try { const sb = window.Capacitor.Plugins.StatusBar; if (sb) { sb.setStyle({ style: 'DARK' }); sb.setBackgroundColor && sb.setBackgroundColor({ color: '#090a08' }); } } catch (e) { }
   try { const sp = window.Capacitor.Plugins.SplashScreen; if (sp) sp.hide(); } catch (e) { }
+} else if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  try { navigator.serviceWorker.register('sw.js').catch(() => { }); } catch (e) { }
 }
 
 render();
