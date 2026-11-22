@@ -6,6 +6,7 @@ function vInicio() {
   const todayTxt = new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
   const lastToday = st.checkedToday ? fmtTime(st.last) : null;
   const nc = nextClassFor(m.id);
+  const duel = S.duels.find(d => d.status === 'activo' && (d.a === m.id || d.b === m.id));
   return `
   <section class="hello">
     <div><p class="eyebrow">${esc(todayTxt)}</p><h1 class="h-display">Hola, <em>${esc(firstName(m.name))}</em></h1></div>
@@ -35,6 +36,9 @@ function vInicio() {
         <div class="bar" style="margin:6px 0 5px"><i style="width:${Math.round(lv.pct * 100)}%"></i></div>
         <p class="small muted num">${nf(lv.toNext)} XP para nivel ${lv.level + 1}</p>
       </div>
+      <button type="button" class="stat-tile accent" data-act="go" data-r="tienda" style="text-align:left;padding:8px 10px">
+        <div class="l">Golpes</div><div class="v num" style="font-size:24px">${nf(m.coins)}</div>
+      </button>
     </div>
   </section>
 
@@ -56,7 +60,12 @@ function vInicio() {
       : `<div class="card empty">No tienes clases reservadas. <button type="button" class="link" style="color:var(--lime)" data-act="go" data-r="clases">Reserva una</button></div>`}
   </section>
 
+  ${duel ? duelCard(duel, true) : ''}
 
+  <section class="stack">
+    <div class="sec-head"><h2 class="h-sec">Retos del mes</h2><button type="button" class="link" data-act="go" data-r="retos">Ver todos</button></div>
+    ${S.challenges.slice(0, 2).map(ch => challengeRow(ch, m, st)).join('')}
+  </section>
 
   <button type="button" class="btn ghost block small" data-act="logout">${I.x}Cerrar sesión</button>
   `;
