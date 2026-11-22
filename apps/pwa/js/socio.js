@@ -18,6 +18,7 @@ function vInicio() {
   </section>
 
   <section class="quick" aria-label="Accesos rápidos">
+    <button type="button" data-act="video">${I.video}Video mes</button>
     <button type="button" data-act="membership">${I.card}Membresía</button>
   </section>
 
