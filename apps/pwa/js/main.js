@@ -4,9 +4,12 @@
 const ROUTES = {
   inicio: { role: 'socio', label: 'Inicio', icon: 'home', render: vInicio },
   clases: { role: 'socio', label: 'Clases', icon: 'cal', render: vClases },
+  retos: { role: 'socio', label: 'Retos', icon: 'trophy', render: vRetos },
+  tienda: { role: 'socio', label: 'Premios', icon: 'gift', render: vTienda },
   perfil: { role: 'socio', label: 'Mi ficha', icon: 'user', render: vPerfil },
   socios: { role: 'admin', label: 'Socios', icon: 'users', render: vSocios },
   agenda: { role: 'admin', label: 'Agenda', icon: 'cal', render: vAgenda },
+  entregas: { role: 'admin', label: 'Premios', icon: 'gift', render: vEntregas },
 };
 
 /* ================= Acciones (delegación) ================= */
@@ -30,12 +33,16 @@ const ACTIONS = {
   fMode: d => { ui.fighterMode = d.m; render(); },
   classDay: d => { ui.classDay = Number(d.d); render(); },
   agendaDay: d => { ui.agendaDay = Number(d.d); render(); },
+  retosTab: d => { ui.retosTab = d.t; render(); },
+  rankMetric: d => { ui.rankMetric = d.k; render(); },
   socioFilter: d => { ui.socioFilter = d.k; render(); },
+  newDuel: openNewDuel,
   member: d => openMember(d.id),
   msgMember: d => openMsg(d.id),
   addMember: openAddMember,
   addClass: openAddClass,
   classRoster: d => openRoster(d.id),
+  addChallenge: openAddChallenge,
   book: d => {
     const c = S.classes.find(x => x.id === d.id), id = S.me;
     if (c.booked.includes(id)) {
@@ -47,6 +54,26 @@ const ACTIONS = {
     else { c.booked.push(id); toast(`Lugar reservado: ${c.name} ${DOW[c.day]} ${c.time}.`, 'lime'); }
     save(); render();
   },
+  claim: d => {
+    const m = me(), ch = S.challenges.find(x => x.id === d.id);
+    m.claimed = m.claimed || []; if (m.claimed.includes(ch.id)) return;
+    m.claimed.push(ch.id); m.coins += ch.reward; m.xp += 100; save(); render();
+    toast(`¡Reto cumplido! +${ch.reward} golpes y +100 XP.`, 'lime');
+  },
+  redeem: d => {
+    const m = me(), r = S.rewards.find(x => x.id === d.id);
+    confirmSheet(`Canjear ${esc(r.name)}`, `Se descontarán ${nf(r.cost)} golpes. Te quedarán ${nf(m.coins - r.cost)}.`, 'Canjear', () => {
+      if (m.coins < r.cost || r.stock < 1) return;
+      m.coins -= r.cost; r.stock -= 1;
+      const code = 'CG-' + (1000 + Math.floor(Math.random() * 8999));
+      S.redemptions.push({ id: uid('x'), memberId: m.id, rewardId: r.id, ts: new Date().toISOString(), code, status: 'pendiente' });
+      save(); render();
+      sheet(`<div style="text-align:center" class="stack"><p class="eyebrow lime">Canje confirmado</p><p class="h-display">${esc(r.name)}</p><p class="muted">Muestra este código en recepción</p><p class="h-display num" style="font-size:56px;color:var(--lime);letter-spacing:4px">${code}</p><button type="button" class="btn primary block" data-act="close">Listo</button></div>`);
+    });
+  },
+  deliver: d => { const r = S.redemptions.find(x => x.id === d.id); r.status = 'entregado'; r.deliveredAt = new Date().toISOString(); save(); render(); toast(`Entregado: ${r.code}.`, 'lime'); },
+  stock: d => { const r = S.rewards.find(x => x.id === d.id); r.stock = Math.max(0, r.stock + Number(d.d)); save(); render(); },
+  delChallenge: d => confirmSheet('¿Eliminar reto?', 'Los socios dejarán de verlo en la app.', 'Eliminar', () => { S.challenges = S.challenges.filter(x => x.id !== d.id); save(); render(); }),
 };
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-act]');

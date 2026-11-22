@@ -14,7 +14,7 @@ Equipo: Ricardo Fabián Navarro González · Fernando Tonatiuh Espinosa
 | 3 | Registro e inicio de sesión + base de la app | Cerrado | [`release/sprint-3`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-3) | [sprint-03.md](docs/sprints/sprint-03.md) |
 | 4 | Perfil de los miembros (ficha de peleador) | Cerrado | [`release/sprint-4`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-4) | [sprint-04.md](docs/sprints/sprint-04.md) |
 | 5 | Registro de asistencia mediante QR | Cerrado | [`release/sprint-5`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-5) | [sprint-05.md](docs/sprints/sprint-05.md) |
-| 6 | Gamificación: retos, duelos y premios | Pendiente | — | — |
+| 6 | Gamificación: retos, duelos y premios | Cerrado | [`release/sprint-6`](https://github.com/FabianNavarroDev/contragolpe-boxing-app/tree/release/sprint-6) | [sprint-06.md](docs/sprints/sprint-06.md) |
 | 7 | Panel del gym, contenido para redes y despliegue | Pendiente | — | — |
 
 Cada sprint cerrado tiene una rama **`release/sprint-N`** que congela el código tal como quedó al cierre y dos **Pull Requests**: el del trabajo del sprint (`feature → develop`) y el del cierre (`develop → main`).

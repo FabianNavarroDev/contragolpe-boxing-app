@@ -8,6 +8,7 @@ function doCheckin(memberId, source) {
   if (st.checkedToday) return { already: true, member: m };
   if (st.status === 'vencido') return { expired: true, member: m };
   const beforeLvl = st.lvl.level;
+  const beforeBadges = earned(m);
   const now = new Date();
   // racha: cuenta si el último día entrenado fue ayer, o anteayer cuando ayer fue domingo
   let gap = st.daysSince;
@@ -22,7 +23,8 @@ function doCheckin(memberId, source) {
   coins += streakBonus;
   m.xp += xp; m.coins += coins;
   S.checkins.push({ id: uid('c'), memberId, ts: now.toISOString(), source });
-  const newBadges = [];
+  const after = earned(m);
+  const newBadges = BADGES.filter(b => after.has(b.id) && !beforeBadges.has(b.id));
   const lvlNow = levelOf(m.xp).level;
   save();
   const res = { ok: true, member: m, xp, coins, streakBonus, streak: m.streak, newBadges, levelUp: lvlNow > beforeLvl ? lvlNow : 0, ts: now };
