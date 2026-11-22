@@ -1,0 +1,15 @@
+{
+  "name": "Contragolpe Boxing",
+  "short_name": "Contragolpe",
+  "description": "Check-in con QR, ficha de peleador, retos, premios y panel del gym.",
+  "start_url": "./index.html#inicio",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#090a08",
+  "theme_color": "#090a08",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
