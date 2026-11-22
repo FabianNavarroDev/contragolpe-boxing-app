@@ -28,7 +28,7 @@ apps/pwa   Prototipo funcional (PWA: app del socio + panel del gym)
 docs       Arquitectura, documentos por sprint y entregables
 ```
 
-Detalle técnico: [docs/arquitectura.md](docs/arquitectura.md)
+Detalle técnico: [docs/arquitectura.md](docs/arquitectura.md) · Guía del repositorio: [docs/GUIA-GITHUB.md](docs/GUIA-GITHUB.md)
 
 ## Cómo ejecutarlo
 

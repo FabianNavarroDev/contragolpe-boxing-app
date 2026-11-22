@@ -41,7 +41,7 @@ Horas estimadas comprometidas: **41** · completadas: **36** (88 %).
 
 - Se completó el alcance planeado para el curso y la app quedó publicada.
 - Las pruebas de Fernando antes de cada cierre se volvieron constantes.
-- El repositorio ya muestra el avance sprint por sprint (etiquetas, Pull Requests y releases).
+- El repositorio ya muestra el avance sprint por sprint (Pull Requests y una rama release por sprint).
 
 **Qué se puede mejorar**
 
